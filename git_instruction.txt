@@ -1,0 +1,34 @@
+# clone master
+git clone <remote_repo>
+
+# clone a specific branch
+git git clone -b <branch> <remote_repo>
+
+git init
+
+git status
+
+# add things to be commited
+git add [filename] # add specific files
+git add . # add all the files
+
+git commit -m ¡°[message]¡±
+
+git remote add origin [project URL]
+
+git remote -v
+
+
+git push / git push origin master
+
+git checkout -b [name_of_your_new_branch]
+
+git push origin [name_of_your_new_branch]
+
+# To force the deletion of local branch on your filesystem
+git branch -D [name_of_your_new_branch]
+
+# Delete the branch on github :
+git push origin :[name_of_your_new_branch]
+
+git pull
