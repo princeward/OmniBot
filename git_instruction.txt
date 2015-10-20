@@ -1,3 +1,6 @@
+Very useful web resources:
+http://rogerdudler.github.io/git-guide/
+
 # clone master
 git clone <remote_repo>
 
