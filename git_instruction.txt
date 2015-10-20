@@ -16,7 +16,7 @@ git status
 git add [filename] # add specific files
 git add . # add root directory
 
-git commit -m ¡°[message]¡±
+git commit -m "[message]"
 
 git remote add origin [project URL]
 
