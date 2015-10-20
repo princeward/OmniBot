@@ -38,4 +38,13 @@ git branch -D [name_of_your_new_branch]
 # Delete the branch on github :
 git push origin :[name_of_your_new_branch]
 
-git pull
+# update local repo (master branch) with the Github repo
+git fetch origin  
+git pull 
+
+# update local repo (non-master branch) with the Github repo
+git fetch
+git rebase origin/master 
+
+
+
