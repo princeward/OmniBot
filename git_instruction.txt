@@ -6,13 +6,17 @@ git git clone -b <branch> <remote_repo>
 
 git init
 
+# add github username and email
+git config --global user.name "YOUR NAME"
+git config --global user.email "YOUR EMAIL ADDRESS"
+
 git status
 
 # add things to be commited
 git add [filename] # add specific files
 git add . # add all the files
 
-git commit -m ¡°[message]¡±
+git commit -m Â¡Â°[message]Â¡Â±
 
 git remote add origin [project URL]
 
