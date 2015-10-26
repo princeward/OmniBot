@@ -2,8 +2,7 @@
 .. module:: optitrack
    :synopsis: Module for handling and retrieving OptiTrack positioning data.
 
-.. module original author:: Cristian Ioan Vasile <cvasile@bu.edu>
-   module modified by :: Guang Yang <gyang101@bu.edu>, Zijian Wang
+.. moduleauthor:: Cristian Ioan Vasile <cvasile@bu.edu>
 '''
 '''
     Module for handling and retrieving OptiTrack positioning data.
