@@ -54,7 +54,6 @@ class OptiTrackInterface(object):
             self.__localIP = localIP
         else:
             self.__localIP = getLocalIP()
-        print self.__localIP
         
         self.__port = multicastPort
         self.__buffer = bytearray(buffersize)
@@ -64,6 +63,8 @@ class OptiTrackInterface(object):
         self.origin = RigidBody()
         
         self.setup()
+
+        print "OptiTrack interface initialized, self IP address = ", self.__localIP
     
     def __del__(self):
         '''
@@ -106,41 +107,35 @@ class OptiTrackInterface(object):
         
 #-------------------------------------------------------------------------------
 
-    def trackInfo(self, obj_id):
-        '''
-        Note: only for ZYX Euler angles
-        '''
-        # Receive the data into a buffer
-#         self.__socket.recv_into(self.__buffer, self.buffersize)
-#         print ' '.join(map(hex, self.__buffer))
+    def get_pos(self, obj_id):
         msg = self.__socket.recv(4096)
-        print len(msg)
         
 #         Parse data 
         markerSets, rigidBodies = parseNatNet(msg)
-       
-        # print OptiTrack data -- TODO: recode this with logging library
-        if True:
-            print '--------------------------------------------'
                
-            # the same data displayed in the Motive/OptiTrack panel
-	    rigidBodyID = obj_id
-            rigidBody = rigidBodies[rigidBodyID]
-            #print quaternion2rot(rigidBody.SE3[3:])
-            euler = rot2ZYXeuler(quaternion2rot(rigidBody.SE3[3:])) # pitch,row , yaw
+        # the same data displayed in the Motive/OptiTrack panel
+        rigidBodyID = obj_id
+        rigidBody = rigidBodies[rigidBodyID]
+        #print quaternion2rot(rigidBody.SE3[3:])
+        euler = rot2ZYXeuler(quaternion2rot(rigidBody.SE3[3:])) # pitch,row , yaw
 
-	    # output format: [x,y,z,pitch,roll,yaw]. Positive direction: CCW -> Pitch(+down), Roll(+bank right)
-            print rigidBodyID, '->', 'x: ',rigidBody.SE3[2],'y: ',rigidBody.SE3[0],'z: ',rigidBody.SE3[1]
-	    print 'Pitch: ',euler[0],'Roll: ',euler[1],'Yaw: ',euler[2]
-	   
-          
-        return rigidBodies
+        # output format: [x,y,z,pitch,roll,yaw]. Positive direction: CCW -> Pitch(+down), Roll(+bank right)
+        return (rigidBody.SE3[2], rigidBody.SE3[0], rigidBody.SE3[1], euler[0], euler[1], euler[2]) #(x,y,z,pitch,roll,yaw)
 
 
+    def PrintTrackInfo(self, obj_id):
+        '''
+        TBD
+        '''
+        (x,y,z,pitch,roll,yaw) = self.get_pos(obj_id)
+        print("%.3f, %.3f, %.3f, %.3f, %.3f, %.3f" % (x,y,z,pitch,roll,yaw) )
 
-if __name__ == '__main__':
+
+
+#if __name__ == '__main__':
     #test OptiTrack interface
     
-    opti = OptiTrackInterface()
-    opti.trackInfo(1)
-    opti.trackInfo(2)
+#    opti = OptiTrackInterface()
+#    opti.PrintTrackInfo(1)
+
+
