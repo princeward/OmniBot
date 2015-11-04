@@ -29,10 +29,6 @@ import struct
 import sys
 import time
 
-from numpy import array, mean, rad2deg, zeros
-from numpy.linalg import inv
-from numpy import matrix
-
 from util import getLocalIP
 from util import rot2ZYXeuler, quaternion2rot
 from parseNatNet import RigidBody, parseNatNet
@@ -108,15 +104,21 @@ class OptiTrackInterface(object):
 #-------------------------------------------------------------------------------
 
     def get_pos(self, obj_id):
+        '''
+        Get the 6-DOF pose of the tracked object. To use:
+        (x,y,z,pitch,roll,yaw) = self.get_pos(obj_id)
+        '''
+
+        # Receive data from socket
         msg = self.__socket.recv(4096)
         
-#         Parse data 
+        # Parse data 
         markerSets, rigidBodies = parseNatNet(msg)
                
-        # the same data displayed in the Motive/OptiTrack panel
-        rigidBodyID = obj_id
-        rigidBody = rigidBodies[rigidBodyID]
-        #print quaternion2rot(rigidBody.SE3[3:])
+        # Retrieve the info of the specified rigid body 
+        rigidBody = rigidBodies[obj_id]
+
+        # Calculate Euler angles
         euler = rot2ZYXeuler(quaternion2rot(rigidBody.SE3[3:])) # pitch,row , yaw
 
         # output format: [x,y,z,pitch,roll,yaw]. Positive direction: CCW -> Pitch(+down), Roll(+bank right)

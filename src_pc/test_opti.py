@@ -9,5 +9,5 @@ from time import sleep
 if __name__ == '__main__':
     opti = OptiTrackInterface()
     while(True):
-	opti.PrintTrackInfo(5)
+	opti.PrintTrackInfo(2)
 	sleep(0.1)
