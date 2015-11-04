@@ -50,7 +50,6 @@ import sys
 sys.path.append("..")
 # include optitrack module
 from src_optitrack.optitrack import *
-import PID
 
 # Global variables
 RB_ID = 5 # rigid-body ID in the optitrack system
