@@ -154,6 +154,11 @@ if __name__ == '__main__':
 		
 		print get_rot_dir_str(yaw,desire_robot_heading)
 
+		## 1. generate angular velocity command by PID
+		## 2. combine all commends to a string command, and publish
+		## 3. Wrap up everything to function
+
+
 
 
 		##############################################
