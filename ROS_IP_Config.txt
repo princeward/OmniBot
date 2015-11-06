@@ -1,0 +1,23 @@
+PC side:
+
+1. /etc/hosts
+
+192.168.1.14 suyang # robot IP
+192.168.1.15 CyberPowerPC # PC IP
+
+2. ~/.bachrc
+
+export ROS_HOSTNAME=CyberPowerPC # PC name
+export ROS_MASTER_URI=http://CyberPowerPC:11311 # PC name
+
+
+Robot side:
+1. same as PC side: /etc/hosts
+
+192.168.1.14 suyang # robot IP
+192.168.1.15 CyberPowerPC # PC IP
+
+2. ~/.bashrc
+
+export ROS_HOSTNAME=suyang # robot's own name
+export ROS_MASTER_URI=http://CyberPowerPC:11311 # PC name (location of ROS core)
