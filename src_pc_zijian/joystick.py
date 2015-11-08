@@ -42,6 +42,23 @@ import pygame
 import math
 import time
 from time import sleep
+import sys
+
+
+import signal # for catching keyboard interrupt ctrl+c
+
+rospy.init_node('pc', anonymous=True)
+#rospy.Subscriber('current',String,current_callback)
+pub = rospy.Publisher('joystick',String,queue_size = 14)
+
+# Exit safely: will run when ctrl+c is pressed
+def exit_handler(signal, frame):
+    move_command = "@a0000000001?!"
+    pub.publish(move_command)
+    print 'Program ended!'
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, exit_handler) # register the exit interrupt function
 
 #GUI initialization
 BLACK    = (   0,   0,   0)
@@ -147,10 +164,6 @@ def current_callback(data):
     rospy.loginfo("%s",data.data)
 
 if __name__ == '__main__': 
-    rospy.init_node('pc', anonymous=True)
-    rospy.Subscriber('current',String,current_callback)
-    pub = rospy.Publisher('joystick',String,queue_size = 14)
-
 
 
     while True:
