@@ -15,7 +15,7 @@ $ roscore
 $ rosparam set hokuyo_node/calibrate_time false
 $ rosparam set hokuyo_node/port /dev/ttyACM0 
 
-Running hokuyo_node:
+Running hokuyo_node to stream data (make sure the lidar is plugged in):
 $ rosrun hokuyo_node hokuyo_node
 
 Streaming laser frame at 30fps:
