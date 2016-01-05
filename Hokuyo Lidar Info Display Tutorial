@@ -1,0 +1,40 @@
+#The following tutorial explains how to install Hokuyo Lidar (Type:URG-04LX-UG01) and displays its data
+#Operating System: Ubuntu 14.04 LTS desktop version
+#ROS version:indigo
+
+Install:
+
+$ sudo apt-get install ros-indigo-hokuyo-node
+$ sudo chmod a+rw /dev/ttyACM0
+
+Startong roscore:
+
+$ roscore
+
+#to speed up the start up
+$ rosparam set hokuyo_node/calibrate_time false
+$ rosparam set hokuyo_node/port /dev/ttyACM0 
+
+Running hokuyo_node:
+$ rosrun hokuyo_node hokuyo_node
+
+Streaming laser frame at 30fps:
+$ rosrun tf static_transform_publisher 0.0 0.0 0.0 0.0 0.0 0.0 map laser 30
+
+Start GUI:
+$ rosrun rviz rviz -d `rospack find hokuyo_node`/hokuyo_test.vciz
+
+In the GUI:
+Under "Global Options" -> "Fixed Frame", select /laser
+
+Add "Laser Scan" using "Add" 
+
+
+
+Links:
+http://wiki.ros.org/hokuyo_node/Tutorials/UsingTheHokuyoNode
+http://wiki.ros.org/hokuyo_node
+http://wiki.ros.org/tf/Tutorials
+
+
+
