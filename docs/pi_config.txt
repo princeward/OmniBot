@@ -1,0 +1,9 @@
+1. enable R/W of serial port ttyAMA0 at startup
+
+remove references to /dev/ttyAMA0 from /boot/cmdline.txt
+old: dwc_otg.lpm_enable=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 rootwait
+new: dwc_otg.lpm_enable=0 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 rootwait
+
+2. Change the date on RPi 2
+
+sudo date -s "Mon Aug  12 20:14:11 UTC 2014"
