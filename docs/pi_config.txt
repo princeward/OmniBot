@@ -1,8 +1,11 @@
 1. enable R/W of serial port ttyAMA0 at startup
 
-remove references to /dev/ttyAMA0 from /boot/cmdline.txt
+Step a. remove references to /dev/ttyAMA0 from /boot/cmdline.txt
 old: dwc_otg.lpm_enable=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 rootwait
 new: dwc_otg.lpm_enable=0 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 rootwait
+
+Step b. Comment out the following line in /etc/inittab
+#2:23:respawn:/sbin/getty -L ttyAMA0 115200 vt100
 
 2. Change the date on RPi 2
 
