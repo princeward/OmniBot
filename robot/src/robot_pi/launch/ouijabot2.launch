@@ -1,0 +1,8 @@
+<launch>
+	<env name="ROS_MASTER_URI" value="http://Zijian_Thinkpad:11311" />
+	<node name="OuijaBot2" pkg="robot_pi" type="mcu_comm_node.py">
+		<remap from="wheel_spd" to="robot2/wheel_spd" />
+		<remap from="current" to="robot2/current" />
+	</node>
+
+</launch>
