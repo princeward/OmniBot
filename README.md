@@ -1,5 +1,2 @@
 # OmniBot
-Omnidirectional Robot Planform currently being developed at Boston University
-
-# Developer Sign-on
-Zijian Wang
+Omnidirectional Robot Planform currently being developed at Stanford University and Boston University
