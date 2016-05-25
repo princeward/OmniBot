@@ -12,3 +12,7 @@ Step b.
 2. Change the date on RPi 2
 
 sudo date -s "Mon Aug  12 20:14:11 UTC 2014"
+
+3. Enable autocompletion via SSH
+
+export LC_ALL="C" maybe put it in your .bashrc
