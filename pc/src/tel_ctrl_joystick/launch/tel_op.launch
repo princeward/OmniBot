@@ -1,0 +1,10 @@
+<launch>
+    <node pkg="joy" type="joy_node" name="joystick_input">
+    	<param name="dev" value="/dev/input/js0" />
+	</node>
+
+    <node pkg="tel_ctrl_joystick" type="tel_op.py" name="joystick_vel_cmd">
+        <remap from="in" to="joy" />
+        <remap from="out" to="command_velocity" />
+    </node>
+</launch>
