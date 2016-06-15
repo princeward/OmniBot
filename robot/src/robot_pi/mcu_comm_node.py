@@ -20,7 +20,7 @@ from robot_pi.msg import Current # custom ROS msg for motor current (4 floats)
 rospy.init_node('robot', anonymous=True)
 pub_wheel_spd = rospy.Publisher('wheel_spd', Wheel_Spd, queue_size=15)
 pub_current = rospy.Publisher('current', Current, queue_size=15)
-pub_acc = rospy.Publisher('acc', Imu, queue_size=15)
+pub_acc = rospy.Publisher('imu', Imu, queue_size=15)
 
 
 # Exit safely: will run when ctrl+c is pressed
@@ -84,6 +84,7 @@ def Sensor_Msg_Handler(feed_stream):
 		Sensor_Msg_Handler.prev_stream_left_over = ""  # add an attribute to the function (equivalent to static var in C)
 	# combine the stream left over previously to the new stream	
 	stream = Sensor_Msg_Handler.prev_stream_left_over + feed_stream
+
 	# check the existence of packet head @
 	if '@' not in stream:
 		Sensor_Msg_Handler.prev_stream_left_over = stream
@@ -103,6 +104,8 @@ def Sensor_Msg_Handler(feed_stream):
 			data_len = 16
 		elif stream[head_idx+1] == 'C': # Acceleration
 			data_len = 12 # only 3 bytes for 3-axis Acc
+		elif stream[head_idx+1] == 'E': # 3-axis Acc + z-axis Gyro
+			data_len = 16 
 		#
 		# Reserve for more types
 		#
@@ -178,7 +181,27 @@ def Sensor_Msg_Handler(feed_stream):
 			a.linear_acceleration.y = acc[1]
 			a.linear_acceleration.z = acc[2]
 			pub_acc.publish(a)
-			# print "[Acc] %.3f, %.3f, %.3f" % (acc[0], acc[1], acc[2])
+			#print "[Acc] %.3f, %.3f, %.3f" % (acc[0], acc[1], acc[2])
+			stream = stream[head_idx+3+data_len: ] # delete the extracted data from the stream
+		elif stream[head_idx+1] == 'E': # 3-axis Acc + z-axis Gyro
+			acc = [0.0,0.0,0.0]
+			wz = 0.0
+			data_start_idx = head_idx+2
+			temp = struct.unpack('f', stream[data_start_idx: data_start_idx+4])
+			acc[0] = temp[0]
+			temp =  struct.unpack('f', stream[data_start_idx+4: data_start_idx+8])
+			acc[1] = temp[0]
+			temp = struct.unpack('f', stream[data_start_idx+8: data_start_idx+12])
+			acc[2] = temp[0]
+			temp = struct.unpack('f', stream[data_start_idx+12: data_start_idx+16])
+			wz = temp[0]
+			# publish to ROS using custom msg
+			a = Imu()
+			a.linear_acceleration.x = acc[0]
+			a.linear_acceleration.y = acc[1]
+			a.linear_acceleration.z = acc[2]
+			a.angular_velocity.z = wz
+			pub_acc.publish(a)
 			stream = stream[head_idx+3+data_len: ] # delete the extracted data from the stream
 		else:
 			continue

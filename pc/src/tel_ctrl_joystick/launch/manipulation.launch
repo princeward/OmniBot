@@ -6,8 +6,10 @@
 	<!-- need to add output = "screen" to make print work in python -->
     <node pkg="tel_ctrl_joystick" type="manipulation_ctrl.py" name="joystick_cmd_proc" output = "screen">
         <remap from="in" to="joy" />
-        <remap from="bot2_vel" to="OuijaBot2/command_velocity" />
-		<remap from="bot1_vel" to="OuijaBot1/command_velocity" />
+	<remap from="bot1_vel" to="OuijaBot1/command_velocity" />
+	<remap from="bot2_vel" to="OuijaBot2/command_velocity" />
+	<remap from="bot3_vel" to="OuijaBot3/command_velocity" />
+	<remap from="bot4_vel" to="OuijaBot4/command_velocity" />
     </node>
 	
 </launch>

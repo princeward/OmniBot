@@ -1,0 +1,11 @@
+<launch>
+<!--	<env name="ROS_MASTER_URI" value="http://msl-Lenovo:11311" />    -->
+	
+	<group ns="OuijaBot1" >
+		<node name="mcu_comm" pkg="robot_pi" type="mcu_comm_node.py">
+			<!-- <remap from="wheel_spd" to="robot2/wheel_spd" />      -->
+			<!-- <remap from="current" to="robot2/current" />     -->
+		</node>
+	</group>
+
+</launch>
